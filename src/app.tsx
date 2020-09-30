@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
-import padTime from './utils/pad-time';
+import Button from './components/button';
+import Heading from './components/heading';
+import Timer from './components/timer';
 
-const TIME_IN_SECONDS = 10;
+const TIME_IN_SECONDS = 25 * 60;
 
 const App = () => {
   const [time, setTime] = useState(TIME_IN_SECONDS);
-  const minutes = Math.floor(time / 60);
-  const seconds = time - minutes * 60;
   const intervalRef = useRef<NodeJS.Timeout | null>();
   const [isRunning, setIsRunning] = useState(false);
   const isDecremented = time < TIME_IN_SECONDS;
@@ -48,15 +48,13 @@ const App = () => {
   };
 
   return (
-    <div className="app">
-      <h1>React Pomodoro</h1>
+    <div>
+      <Heading>React Pomodoro</Heading>
+      <Timer time={time} />
       <div>
-        {padTime(minutes)} : {padTime(seconds)}
-      </div>
-      <div>
-        {!isRunning && <button onClick={start}>Start</button>}
-        {isRunning && <button onClick={stop}>Stop</button>}
-        {isDecremented && <button onClick={reset}>Reset</button>}
+        {!isRunning && <Button onClick={start}>Start</Button>}
+        {isRunning && <Button onClick={stop}>Stop</Button>}
+        {isDecremented && <Button onClick={reset}>Reset</Button>}
       </div>
     </div>
   );
