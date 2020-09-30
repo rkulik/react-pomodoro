@@ -1,6 +1,6 @@
 # React Pomodoro
 
-Pomodoro timer built with React.
+Pomodoro timer built with React and TypeScript.
 
 ## Getting started
 
