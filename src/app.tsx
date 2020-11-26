@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Button from './components/button';
 import Heading from './components/heading';
 import Timer from './components/timer';
+import { requestNotificationPermission, showNotification } from './utils/notification';
 
 const TIME_IN_SECONDS = 25 * 60;
 
@@ -12,12 +13,8 @@ const App = () => {
   const isDecremented = time < TIME_IN_SECONDS;
 
   useEffect(() => {
-    if ('Notification' in window) {
-      Notification.requestPermission();
-    }
+    requestNotificationPermission();
   }, []);
-
-  const showBreakNotification = () => new Notification('5 minute break!');
 
   const start = () => {
     if (intervalRef.current) {
@@ -33,7 +30,7 @@ const App = () => {
             return time - 1;
           }
 
-          showBreakNotification();
+          showNotification('5 minute break!');
           reset();
 
           return 0;
