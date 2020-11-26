@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from './components/button';
 import Heading from './components/heading';
 import Timer from './components/timer';
@@ -10,6 +10,14 @@ const App = () => {
   const intervalRef = useRef<NodeJS.Timeout | null>();
   const [isRunning, setIsRunning] = useState(false);
   const isDecremented = time < TIME_IN_SECONDS;
+
+  useEffect(() => {
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  const showBreakNotification = () => new Notification('5 minute break!');
 
   const start = () => {
     if (intervalRef.current) {
@@ -25,7 +33,9 @@ const App = () => {
             return time - 1;
           }
 
+          showBreakNotification();
           reset();
+
           return 0;
         }),
       1000,
