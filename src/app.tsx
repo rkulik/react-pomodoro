@@ -30,7 +30,7 @@ const App = () => {
             return time - 1;
           }
 
-          showNotification('5 minute break!');
+          showNotification('TAKE A BREAK!');
           reset();
 
           return 0;
